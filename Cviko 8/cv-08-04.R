@@ -167,7 +167,6 @@ model <- lm (u.j ~ x)
 lines (x, model$fitted.values, col = 2, lwd = 1.5)
 
 
-
 # P-P plot
 # tip: viz prednaska 7
 
@@ -175,8 +174,10 @@ mx <- mean(x)
 sx <- sd(x)
 
 z <- sort((x-mx)/sx)
-F <- (1:n)/n
+
 Phi <- pnorm(z)
+n <- length(Phi)
+F <- (1:n)/n
 
 # vykreslime body grafu
 plot (Phi, F, pch = 20, xlab = "teoreticka distribucni funkce", ylab = "empiricka distribucni funkce", main = "P-P plot")
