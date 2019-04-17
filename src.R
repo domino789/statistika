@@ -21,3 +21,6 @@ BMI <- data.frame(
 # MATH FUNCTIONS
 factorial(5)
 choose(3, 1)  # (n|k)
+
+# string join
+paste(..., sep = " ")

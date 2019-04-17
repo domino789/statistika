@@ -1,6 +1,6 @@
 #	Priklad 1
 
-# Working dir must be statistika/data dir
+# Working dir must be statistika/data dir!!!
 data <- read.csv (file = "znamky.csv", header = TRUE, sep = ",", dec = ".")
 
 #	pocet skupin
@@ -106,14 +106,16 @@ stripchart (X, vertical = FALSE, method = "jitter", pch = 21, col = "red", bg = 
 # ... podobne jako v Prikladu 1
 data <- read.csv (file = "ocel.csv", header = TRUE, sep = ",", dec = ".")
 str (data)
+
 # dopocitejte si stredy a delky jednotlivych intervalu
-d.j <- data$mez.h - data$mez.d
+
+# stredy intervalu
 data$stredy <- (data$mez.d + data$mez.h) / 2
+# delky intervalu 
+d.j <- data$mez.h - data$mez.d
 
-
-
+#	pocet skupin
 r <- nrow (data)
-
 
 #	absolutni cetnosti
 n.j <- data$pocet
@@ -167,7 +169,14 @@ plot (c(0,tabulka$dolni[1], tabulka$horni, 200), c(0,0,tabulka$F.j,1), type="b",
 X <- rep (tabulka$stredy, tabulka$n.j)
 plot (ecdf (X), col = "red", lwd = 2, xlab = "znamka", ylab = "ECDF", main="empiricka distribucni funkce")
  
-# a pridejte je do tabulky 
+# rozpyl a smerodatna odchylka
+rozptyl <- mean (X^2) - prumer^2
+rozptyl
+smerodatna_odchylka <- sqrt (rozptyl)
+smerodatna_odchylka
+# v R je pro vyberovy rozptyl funkce "var", ale je potreba jej zkorigovat na rozptyl z prednasky
+var (X) * (n-1) / n
+
 
 # krabicovy diagram (boxplot)
 boxplot (X, horizontal = TRUE, ylim = range (X), main = "krabicovy diagram (boxplot)")
@@ -210,8 +219,6 @@ quantile (X, c (0.25, 0.5, 0.75))
 boxplot (X, horizontal = TRUE, ylim = range (X), xlab = "znamka", main = "krabicovy diagram (boxplot)")
 stripchart (X, vertical = FALSE, method = "jitter", pch = 21, col = "red", bg = "yellow", cex = 1.5, add = TRUE)
 # "fousy" v R oznacuji nejmensi a nejvetsi pozorovani, ktera jeste jsou uvnitr vnitrni hradby
-
-# ... podobne jako v Prikladu 1
 
 
 
