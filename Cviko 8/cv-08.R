@@ -1,7 +1,7 @@
 #	Priklad 1
 
+# Working dir must be statistika/data dir
 data <- read.csv (file = "znamky.csv", header = TRUE, sep = ",", dec = ".")
-str (data)
 
 #	pocet skupin
 r <- nrow (data)
@@ -50,7 +50,7 @@ mean (X)
 
 # rozpyl a smerodatna odchylka
 rozptyl <- mean (X^2) - prumer^2
- rozptyl
+rozptyl
 smerodatna_odchylka <- sqrt (rozptyl)
 smerodatna_odchylka
 # v R je pro vyberovy rozptyl funkce "var", ale je potreba jej zkorigovat na rozptyl z prednasky
