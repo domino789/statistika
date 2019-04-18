@@ -13,7 +13,7 @@ n <- length (X)
 r <- round (sqrt (n))
 r
 range (X)
-diff (range (X)) / r
+d.j <- ceiling(diff (range (X)) / r)
 #	volime tedy 27 intervalu o delkach 322 
 
 dolni <- seq (from = 21.5, to = 8714, by = 322)
