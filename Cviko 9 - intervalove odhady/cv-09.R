@@ -10,7 +10,6 @@ D <- sqrt (n - 1) * odchylka / sqrt (kvantil)
 D
 
 
-
 # Priklad 2 
 
 data <- read.csv (file = "intervaly.csv", header = TRUE, sep = ",", dec = ".")
@@ -21,12 +20,14 @@ prumer <- mean (X)
 odchylka <- sd (X)
 rozptyl <- var (X)
 
+# a)
 alpha <- 0.05
 kvantil <- qt (1 - alpha/2, n - 1)
 D <- prumer - kvantil * odchylka / sqrt(n)
 H <- prumer + kvantil * odchylka / sqrt(n)
 c (D, H)
 
+# b)
 alpha <- 0.05
 kvantil1 <- qchisq (1 - alpha/2, n - 1)
 kvantil2 <- qchisq (alpha/2, n - 1)
@@ -34,6 +35,60 @@ D <- (n - 1) * rozptyl / kvantil1
 H <- (n - 1) * rozptyl / kvantil2
 c (D, H)
 
+
+# Priklad 7
+
+data <- read.csv (file = "spotreba.csv", header = TRUE, sep = ";", dec = ",")
+X <- data$spotreba
+n <- length(X)
+prumer <- mean (X)
+odchylka <- sd (X)
+rozptyl <- var (X)
+
+# stredni hodnota
+alpha <- 0.05
+kvantil <- qt (1 - alpha/2, n - 1)
+D <- prumer - kvantil * odchylka / sqrt(n)
+H <- prumer + kvantil * odchylka / sqrt(n)
+c (D, H)
+
+# rozptyl
+alpha <- 0.05
+kvantil1 <- qchisq (1 - alpha/2, n - 1)
+kvantil2 <- qchisq (alpha/2, n - 1)
+D <- (n - 1) * rozptyl / kvantil1
+H <- (n - 1) * rozptyl / kvantil2
+c (D, H)
+
+
+# Priklad 8
+
+n <- 25
+prumer <- 3118
+odchylka <- 357
+rozptyl = odchylka^2
+
+alpha <- 0.05
+kvantil1 <- qchisq (1 - alpha/2, n - 1)
+kvantil2 <- qchisq (alpha/2, n - 1)
+D <- sqrt( (n - 1) * rozptyl / kvantil1)
+H <- sqrt( (n - 1) * rozptyl / kvantil2)
+c (D, H)
+
+
+# Priklad 9
+
+data <- read.csv (file = "pevnost.csv", header = TRUE, sep = ";", dec = ",")
+X <- data$pevnost
+n <- length(X)
+prumer <- mean (X)
+odchylka <- sd (X)
+rozptyl <- var (X)
+
+alpha <- 0.05
+kvantil <- qchisq (alpha, n - 1)
+H <- (n - 1) * rozptyl / kvantil
+H
 
 
 # Priklad 12 
@@ -64,3 +119,4 @@ tabulka
 plot (tabulka$mesic, tabulka$prumer, type = "b", lwd = 2, col = "red", ylim = c (1500, 6500), xlab = "mesic", ylab = "prumerny pocet zapujcek za den s 95% IS")
 lines (tabulka$mesic, tabulka$D, type = "b", lty = 2, col = "green")
 lines (tabulka$mesic, tabulka$H, type = "b", lty = 2, col = "blue")
+
