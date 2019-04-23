@@ -35,6 +35,79 @@ D <- (n - 1) * rozptyl / kvantil1
 H <- (n - 1) * rozptyl / kvantil2
 c (D, H)
 
+# Priklad 3 
+
+# a)
+alpha <- 0.05
+kvantil1 <- qnorm (1 - alpha/2)
+odhad <- 48/160
+
+D <- odhad - kvantil1 * sqrt((odhad * (1-odhad))/160) 
+H <- odhad + kvantil1 * sqrt((odhad * (1-odhad))/160)
+c (D, H)
+
+# b)
+odhad * 8000
+D <- D*8000
+H <- H*8000
+c (D,H)
+
+# priklad 4
+A <- c (0.14, 0.138, 0.143, 0.142, 0.144, 0.137)
+B <- c (0.135, 0.140, 0.142, 0.136, 0.138)
+alpha <- 0.05
+kvantil <- qnorm (1 - alpha)
+prumerA <- mean(A)
+prumerB <- mean(B)
+rozptylA <- 4e-6
+rozptylB <- 9e-6
+D <- (prumerA - prumerB) - (kvantil * sqrt((rozptylA/length(A)) + (rozptylB/length(B))))
+
+
+#priklad 5 
+data <- read.csv (file = "selata.csv", header = TRUE, sep = ",", dec = ".")
+str(data)
+A <- data$prir1
+B <- data$prir2
+alpha <- 0.05
+nA <- length(A)
+nB <- length(B)
+
+kvantil1 <- qt (1 - alpha/2, nA + nB)
+prumerA <- mean(A)
+prumerB <- mean(B)
+
+vyberovyRozptyl1 <- sd(A)^2
+vyberovyRozptyl2 <- sd(B)^2
+vyberovyRozptyl12 <- sqrt(( ((nA-1)*vyberovyRozptyl1) + ((nB-1)*vyberovyRozptyl2) ) / (nA + nB - 2))
+
+D <- ( (-kvantil1  * vyberovyRozptyl12) / sqrt( (nA*nB)/(nA+nB)) )  + (prumerA - prumerB)
+H <- ( (kvantil1  * vyberovyRozptyl12) / sqrt( (nA*nB)/(nA+nB)) )  + (prumerA - prumerB)
+c (D, H)
+D <- (prumerA - prumerB) - (kvantil1  * vyberovyRozptyl12 * sqrt( (nA+nB)/(nA*nB))) 
+H <- (prumerA - prumerB) + (kvantil1  * vyberovyRozptyl12 * sqrt( (nA+nB)/(nA*nB))) 
+c (D, H) #nevychádza ale vzorec z prednášky ...why ?
+
+#priklad 6 
+A <- c (3.26, 3.26, 3.27, 3.27)
+B <- c (3.23, 3.27, 3.29, 3.29)
+
+alpha <- 0.05
+nA <- length(A)
+nB <- length(B)
+
+kvantil1 <- qf (1 - alpha, nA-1,  nB-1)
+
+
+vyberovyRozptyl1 <- sd(A)^2
+vyberovyRozptyl2 <- sd(B)^2
+vyberovyRozptyl12 <- sqrt(( ((nA-1)*vyberovyRozptyl1) + ((nB-1)*vyberovyRozptyl2) ) / (nA + nB - 2))
+
+
+H <- vyberovyRozptyl1 * kvantil1 / vyberovyRozptyl2
+sqrt(H)
+
+
 
 # Priklad 7
 
@@ -89,6 +162,30 @@ alpha <- 0.05
 kvantil <- qchisq (alpha, n - 1)
 H <- (n - 1) * rozptyl / kvantil
 H
+
+# priklad 10
+data <- read.csv (file = "SiO2.csv", header = TRUE, sep = ";", dec = ",")
+str(data)
+A <- subset(data, metoda == "A")$obsah
+B <- subset(data, metoda == "B")$obsah
+alpha <- 0.05
+nA <- length(A)
+nB <- length(B)
+
+kvantil1 <- qt (1 - alpha/2, nA + nB -2)
+kvantil2 <- qt (alpha/2, nA + nB -2)
+prumerA <- mean(A)
+prumerB <- mean(B)
+
+vyberovyRozptyl1 <- sd(A)^2
+vyberovyRozptyl2 <- sd(B)^2
+vyberovyRozptyl12 <- sqrt(( ((nA-1)*vyberovyRozptyl1) + ((nB-1)*vyberovyRozptyl2) ) / (nA + nB - 2))
+
+#TODO opytat sa preco musi byt prumer prehodeny, nie je A - B 
+D <- ( (-kvantil1  * vyberovyRozptyl12) / sqrt( (nA*nB)/(nA+nB)) )  + (prumerB - prumerA)
+H <- ( (kvantil1  * vyberovyRozptyl12) / sqrt( (nA*nB)/(nA+nB)) )  + (prumerB - prumerA)
+
+c (D, H)
 
 
 # Priklad 12 
