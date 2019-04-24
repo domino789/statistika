@@ -188,6 +188,20 @@ H <- ( (kvantil1  * vyberovyRozptyl12) / sqrt( (nA*nB)/(nA+nB)) )  + (prumerB - 
 c (D, H)
 
 
+# Priklad 11
+alpha <- 0.05
+data <- read.csv (file = "zakaznici.csv", header = TRUE, sep = ";", dec = ",")
+str(data)
+X <- data$zakaznici
+pocet <- length(X)
+prumer <- mean(X)
+S <- sd(X)
+
+kvantil <- qt(1-alpha/2, pocet - 1)
+
+D <- (-kvantil * S / sqrt(pocet)) + prumer
+H <- (kvantil * S / sqrt(pocet)) + prumer 
+c (D, H)
 # Priklad 12 
 
 data <- read.csv (file = "kola.csv", header = TRUE, sep = ",", dec = ".")
