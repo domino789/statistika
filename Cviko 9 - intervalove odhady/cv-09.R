@@ -197,10 +197,10 @@ pocet <- length(X)
 prumer <- mean(X)
 S <- sd(X)
 
-kvantil <- qt(1-alpha/2, pocet - 1)
+kvantil <- qnorm(1-alpha/2)
 
-D <- (-kvantil * S / sqrt(pocet)) + prumer
-H <- (kvantil * S / sqrt(pocet)) + prumer 
+D <- (-kvantil * sqrt(prumer) / sqrt(pocet)) + prumer
+H <- (kvantil * sqrt(prumer) / sqrt(pocet)) + prumer 
 c (D, H)
 # Priklad 12 
 

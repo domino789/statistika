@@ -18,7 +18,7 @@ prehled1 <- summary (model1)
 prehled1
 
 # kubicka parabola
-model2 <- lm (Temperature ~ Year + I(Year^2) + I(Year^3), data = tabulka) 
+model2 <- lm (Temperature ~ Year + I(Year^2)  + I(Year^3), data = tabulka) 
 model2
 prehled2 <- summary (model2)
 prehled2
@@ -56,9 +56,9 @@ boxplot (model1$residuals, model2$residuals, ylab = "rezidua", names = c(1,2), b
 
 # porovnani modelu
 
-sum (model1$residuals^2) / model1$df.residual
-prehled1$r.squared
-prehled1$adj.r.squared
+sum (model1$residuals^2) / model1$df.residual #S_e / (n - k) = S^2 smerodatná odchylka^2
+prehled1$r.squared #koeficient determinace 
+prehled1$adj.r.squared #adjustovaný koef. determinace
 
 sum (model2$residuals^2) / model2$df.residual
 prehled2$r.squared

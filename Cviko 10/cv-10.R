@@ -7,18 +7,18 @@ prumer <- N / n
 odchylka <- sqrt (prumer * (1 - prumer))
 rozptyl <- odchylka^2 
 
-# i
+# i kriticky obor
 (z <- abs (prumer - 0.5) * sqrt(n) / odchylka)
 (kvantil <- qnorm (1 - alpha / 2))
 z > kvantil
 
-# ii
+# ii p hodnota
 p <- 2 * (1 - pnorm (z))
 p < alpha
 # Pozor! binom.test v R dava jinou p-hodnotu, protoze pocita presnou p-hodnotu, nikoliv aproximovanou standardizovanym normalnim rozdelenim z CLV
 binom.test (N, n, p = 0.5)
 
-# iii
+# iii interval spolahlivosti
 D <- prumer - kvantil*odchylka/sqrt(n)
 H <- prumer + kvantil*odchylka/sqrt(n)
 c (D, H)
